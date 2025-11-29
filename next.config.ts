@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental:{
+    proxyClientMaxBodySize: '1024mb',
+     cssChunking: true, // default
+    
+  },
+  images: {
+    domains: ["localhost"],
+  },
 };
 
 export default nextConfig;
