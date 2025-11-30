@@ -9,8 +9,7 @@ export async function PUT(
   try {
     const { id } = await context.params;
     const { status } = await req.json();
-
-    console.log(status)
+ 
 
     const cookieStore = await cookies();
     const adminToken = cookieStore.get("admin_token")?.value;
@@ -20,10 +19,7 @@ export async function PUT(
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-    const url =
-      status === "rejected"
-        ? `${baseUrl}/admin/vendor/rejected/${id}`
-        : `${baseUrl}/admin/vendor/veify/${id}`;
+    const url = `${baseUrl}/admin/vendor/update/status/${id}` ;
 
     const response = await axios.put(
       url,

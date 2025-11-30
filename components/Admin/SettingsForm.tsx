@@ -23,6 +23,7 @@ import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { getFile } from "@/lib/utils"
 
 export const SettingsForm = () => {
 
@@ -70,8 +71,8 @@ export const SettingsForm = () => {
                     firebase_notification: settings.firebase_notification === "enabled",
                 })
 
-                setLogoPreview(settings.site_logo ? settings.site_logo : null)
-                setFaviconPreview(settings.site_favicon ? settings.site_favicon : null)
+                setLogoPreview(settings.site_logo ? getFile(settings.site_logo) : null)
+                setFaviconPreview(settings.site_favicon ? getFile(settings.site_favicon) : null)
             } catch (error) {
                 toast.error("Failed to load settings")
             }
@@ -98,30 +99,49 @@ export const SettingsForm = () => {
         }
     }
 
-    // -------------------------------
-    // UPDATE HANDLER (POST)
-    // -------------------------------
     const handleUpdate = async () => {
-        const formData = new FormData()
+        const formData = new FormData();
 
-        Object.entries(settings).forEach(([key, value]) => {
-            formData.append(key, value as any)
-        })
+        // Convert boolean → "enabled" | "disabled"
+        const payload: any = {
+            ...settings,
+            email_notifications: settings.email_notifications ? "enabled" : "disabled",
+            sms_notifications: settings.sms_notifications ? "enabled" : "disabled",
+            in_app_notification: settings.in_app_notification ? "enabled" : "disabled",
+            firebase_notification: settings.firebase_notification ? "enabled" : "disabled",
+        };
+
+        // append text fields
+        Object.entries(payload).forEach(([key, value]) => {
+            if (key !== "site_logo" && key !== "site_favicon") {
+                formData.append(key, String(value));
+            }
+        });
+
+        // append files only if user selected
+        if (settings.site_logo instanceof File) {
+            formData.append("site_logo", settings.site_logo);
+        }
+
+        if (settings.site_favicon instanceof File) {
+            formData.append("site_favicon", settings.site_favicon);
+        }
 
         try {
             const res = await fetch("/api/admin/settings", {
                 method: "PUT",
-                body: formData,
-            })
+                body: formData
+            });
 
-            if (!res.ok) throw new Error("Update failed")
+            if (!res.ok) throw new Error("Update failed");
 
-            toast.success("Settings updated successfully!")
-            router.refresh()
+            toast.success("Settings updated successfully!");
+            router.refresh();
         } catch (error) {
-            toast.error("Failed to save settings")
+            toast.error("Failed to save settings");
         }
-    }
+    };
+
 
     // -------------------------------
     // RENDER UI
@@ -325,6 +345,7 @@ export const SettingsForm = () => {
                             <Label className="mb-4">Firebase Notifications</Label>
                             <Switch
                                 checked={settings.firebase_notification}
+
                                 onCheckedChange={v => setSettings({ ...settings, firebase_notification: v })}
                             />
                         </div>

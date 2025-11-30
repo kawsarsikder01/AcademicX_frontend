@@ -9,6 +9,9 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { MoreHorizontal } from "lucide-react";
 
 interface Props {
     vendor: vendorType;
@@ -20,22 +23,22 @@ const VendorRow = ({ vendor, index }: Props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
-    const verify = async (id: number | string, status: string) => {
+    const handleUpdateStatus = async (id: number | string, status: string) => {
         setIsSubmitting(true);
 
-        try{
+        try {
             const data = {
-            status : status
-        }
-        await axios.put(
+                status: status
+            }
+            await axios.put(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/vendor/verify/${id}`,
                 data
             );
             toast.success("Vendor status updated successfully!");
             router.refresh();
-        }catch{
+        } catch {
             toast.error("Failed to update status.");
-        }finally{
+        } finally {
             setIsSubmitting(false)
         }
     }
@@ -49,55 +52,33 @@ const VendorRow = ({ vendor, index }: Props) => {
                 {vendor.verification_status === 'approved' ?
                     <Badge variant="secondary" className="bg-green-500 text-white dark:bg-green-600">Verified</Badge> :
                     vendor.verification_status === 'rejected' ? <Badge variant="destructive">Rejected</Badge> :
-                        <Badge variant="secondary">Pending</Badge>
+                    vendor.verification_status === 'blocked' ? <Badge variant="destructive">Blocked</Badge> :
+                        <Badge variant="default">Pending</Badge>
                 }
             </TableCell>
             <TableCell className="text-right">
-                {vendor.verification_status === 'pending' && (
-                    <>
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button className="me-2">Verifiy</Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Verify Vendor</DialogTitle>
-                                    <DialogDescription>Please review and verify the vendor’s details below. Confirm the information is accurate before approving.</DialogDescription>
-                                </DialogHeader>
-                                <DialogFooter>
-                                    <DialogClose asChild>
-                                        <Button variant="outline">Close</Button>
-                                    </DialogClose>
-                                    <Button disabled={isSubmitting} onClick={()=>verify(vendor.id,'approved')}>
-                                        {isSubmitting ? "Verifying..." : "Verify"}
-                                    </Button>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button variant="destructive">Reject</Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Vendor Rejection</DialogTitle>
-                                    <DialogDescription>Please review the vendor’s details below. If the information does not meet the required criteria, provide a reason and confirm the rejection.</DialogDescription>
-                                </DialogHeader>
-                                <DialogFooter>
-                                    <DialogClose asChild>
-                                        <Button variant="outline">Close</Button>
-                                    </DialogClose>
-                                    <Button disabled={isSubmitting} onClick={()=>verify(vendor.id,'rejected')}>
-                                        {isSubmitting ? "Rejecting..." : "Reject"}
-                                    </Button>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-                        
-                    </>
-                )}
-                <Button className="ms-2">View</Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        {vendor.verification_status === 'pending' && (
+                            <>
+                                <DropdownMenuItem onClick={() => handleUpdateStatus(vendor.id, 'approved')}>Verify</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleUpdateStatus(vendor.id, 'rejected')}>Reject</DropdownMenuItem>
+                            </>
+                        )}
+                        { vendor.verification_status === 'approved' && (
+                            <DropdownMenuItem onClick={() => handleUpdateStatus(vendor.id, 'blocked')}>Blocked</DropdownMenuItem>
+                        )}
+                        { vendor.verification_status === 'blocked' && (
+                            <DropdownMenuItem onClick={() => handleUpdateStatus(vendor.id, 'approved')}>Unblock</DropdownMenuItem>
+                        )}
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </TableCell>
         </TableRow>
     );

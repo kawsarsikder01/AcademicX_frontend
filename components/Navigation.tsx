@@ -5,9 +5,15 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import Link from "next/link";
+import Image from "next/image";
+import { useSettings } from "./settings-provider";
+import { getFile } from "@/lib/utils";
+import { Settings } from "@/lib/types";
 
 const Navigation = () => {
   const { totalItems } = useCart();
+  const settings: Settings | null = useSettings();
+   
   
   const navLinks = [
     { to: "/", label: "Home" },
@@ -22,8 +28,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <GraduationCap className="h-8 w-8 text-primary" />
-            <span className="font-bold text-xl text-foreground">LearnHub</span>
+          { settings?.site_logo && <Image src={getFile(settings?.site_logo??'')} alt={settings?.site_name??''} unoptimized width={120} height={40} /> }
           </Link>
 
           {/* Desktop Navigation */}

@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
     // Construct FormData for Axios
     const formToSend = new FormData();
     formToSend.append("payload", JSON.stringify(payload));
+    
     if (thumbnail) formToSend.append("thumbnail", thumbnail);
     lessonsWithVideos.forEach((lesson: { videoFile: string | Blob; }, index: any) => {
       if (lesson.videoFile) formToSend.append(`lessonVideo_${index}`, lesson.videoFile);
