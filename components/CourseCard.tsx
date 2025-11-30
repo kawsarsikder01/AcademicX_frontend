@@ -22,7 +22,7 @@ const CourseCard = (course: Course) => {
             unoptimized
           />
 
-           <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">
+          <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground">
             {course.category?.name}
           </Badge>
         </div>
@@ -51,7 +51,7 @@ const CourseCard = (course: Course) => {
         <CardFooter className="p-4 mt-0 pt-0">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-foreground">${calculateDiscountedPrice(Number(course.price), Number(course.discount))}</span>
-            {course.discount && (
+            {(course?.discount ?? 0) > 0 && (
               <span className="text-lg text-muted-foreground line-through">
                 ${course.price}
               </span>
