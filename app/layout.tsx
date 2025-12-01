@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = data.data;
 
   // Use site_favicon
-  const faviconUrl = settings.site_favicon ? getFile(settings.site_favicon) : "/favicon.ico";
+  const faviconUrl = settings.site_favicon ? getFile(settings.site_favicon) : "/favicon.png";
 
   return {
     title: settings.site_name,

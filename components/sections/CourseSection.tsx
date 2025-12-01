@@ -80,7 +80,7 @@ type lession = {
   live_end_time: string;
   position: number;
   created_at: string;
-  updated_at	: string;
+  updated_at: string;
   quiz?: quiz;
   files: file[];
 }
@@ -116,7 +116,7 @@ export type Course = {
   start_date?: string | null;
   end_date?: string | null;
   enrollment_close_date?: string | null;
-  streaming_server?: 'internal' | 'external'; 
+  streaming_server?: 'internal' | 'external';
   status?: 'draft' | 'pending' | 'published' | 'rejected';
   total_hour: number;
   rating: number;
@@ -130,21 +130,41 @@ export type Course = {
 export default function CourseSection() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState<any>(null);
 
   useEffect(() => {
-     
+
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/courses`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setCourses(data.data);
         setLoading(false);
+        setPagination(data.pagination);
       })
       .catch((err) => {
         console.error(err);
         setLoading(false);
+        
       });
   }, []);
+
+  const handlePagination = (url: string | null) => {
+    if (!url) return;
+
+    setLoading(true);
+
+    // Pass the backend pagination URL to your Next.js API
+    fetch(`/api/courses?page_url=${encodeURIComponent(url)}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setCourses(data.data);
+        setPagination(data.pagination);
+      })
+      .finally(() => setLoading(false));
+  };
+
 
   if (loading) {
     return <p className="text-center py-12">Loading courses...</p>;
@@ -155,7 +175,7 @@ export default function CourseSection() {
       <div className="container mx-auto px-4">
         <div className="mb-6">
           <p className="text-muted-foreground">
-            Showing {courses.length} courses
+            Showing {courses?.length??0} courses
           </p>
         </div>
 
@@ -166,12 +186,27 @@ export default function CourseSection() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-2">
-          <Button variant="outline" disabled>Previous</Button>
-          <Button variant="default">1</Button>
-          <Button variant="outline">2</Button>
-          <Button variant="outline">3</Button>
-          <Button variant="outline">Next</Button>
+        <div className="flex justify-center gap-2">
+          <Button
+            variant="outline"
+            disabled={!pagination?.prevPageUrl}
+            onClick={() => handlePagination(pagination.prevPageUrl)}
+          >
+            Previous
+          </Button>
+
+          <Button variant="default">
+            {pagination?.currentPage}
+          </Button>
+
+          <Button
+            variant="outline"
+            disabled={!pagination?.nextPageUrl}
+            onClick={() => handlePagination(pagination.nextPageUrl)}
+          >
+            Next
+          </Button>
+
         </div>
       </div>
     </section>
