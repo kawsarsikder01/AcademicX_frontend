@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 26, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/admin/login/page.tsx"],"sourcesContent":["import { LoginForm } from \"@/components/Admin/LoginForm\";\r\n\r\nconst Login = () => {\r\n    ret\r\n}\r\n\r\n\r\nexport default Login;"],"names":[],"mappings":";;;;AAEA,MAAM,QAAQ;IACV;AACJ;uCAGe","debugId":null}}]
+}

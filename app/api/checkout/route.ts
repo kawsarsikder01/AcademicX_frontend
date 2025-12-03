@@ -32,7 +32,7 @@ if (!userToken) {
     });
 
   } catch (error: unknown) {
-    if (error.status && error.status === 401) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
       return new Response(error.response.data.message, { status: 500 });
     }
     return new Response("Internal Server Error", { status: 500 });

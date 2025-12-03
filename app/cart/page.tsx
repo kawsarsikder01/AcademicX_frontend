@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Cart from "@/components/cart";
 import { Providers } from "@/components/Provider";
 

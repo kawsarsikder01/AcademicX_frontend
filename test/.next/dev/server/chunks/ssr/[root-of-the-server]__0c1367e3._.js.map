@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/admin/dashboard/page.tsx"],"sourcesContent":["export default function Dashboard(){\r\n    return(\r\n        <div className=\"flex flex-1 flex-col\">\r\n                    <div className=\"@container/main flex flex-1 flex-col gap-2\">\r\n                        <div className=\"flex flex-col gap-4 py-4 md:gap-6 md:py-6\">\r\n                            <Se />\r\n                            <div className=\"px-4 lg:px-6\">\r\n                                <ChartAreaInteractive />\r\n                            </div>\r\n                            <DataTable data={data} />\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n    )\r\n}"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACpB,qBACI,8OAAC;QAAI,WAAU;kBACH,cAAA,8OAAC;YAAI,WAAU;sBACX,cAAA,8OAAC;gBAAI,WAAU;;kCACX,8OAAC;;;;;kCACD,8OAAC;wBAAI,WAAU;kCACX,cAAA,8OAAC;;;;;;;;;;kCAEL,8OAAC;wBAAU,MAAM;;;;;;;;;;;;;;;;;;;;;;AAK7C","debugId":null}}]
+}

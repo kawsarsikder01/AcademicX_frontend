@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/login/page.tsx"],"sourcesContent":["import Navigation from \"@/components/Navigation\";\r\nimport Footer from \"@/components/Footer\";\r\nimport UserLoginForm from \"@/components/login-form\";\r\n\r\nexport default function LoginPage() {\r\n    return (\r\n        <div className=\"min-h-screen flex flex-col\">\r\n            \r\n        </div>\r\n    )\r\n}"],"names":[],"mappings":";;;;;;AAIe,SAAS;IACpB,qBACI,8OAAC;QAAI,WAAU;;;;;;AAIvB","debugId":null}}]
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/checkout/page.tsx"],"sourcesContent":["import Checkout from \"@/components/checkout\";\r\n\r\nexport default function CheckoutPage() {\r\n    return (\r\n        <Checkout/>\r\n    )\r\n}"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACpB,qBACI,8OAAC,kIAAQ;;;;;AAEjB","debugId":null}}]
+}

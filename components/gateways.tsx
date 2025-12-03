@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { getFile } from '@/lib/utils';
+import { useSettings } from './settings-provider';
 
 export type Gateway = {
   id: number;
@@ -19,7 +20,7 @@ export type Gateway = {
 
 type Props = {
   gateways: Gateway[];
-  baseAmountBDT: number; 
+  baseAmount: number; 
   selectedId: number | null;
   onSelect: (id: number) => void;
 };
@@ -27,10 +28,10 @@ type Props = {
 const defaultGateways: Gateway[] = [
   {
     id: 1,
-    name: 'Nagod',
-    currency: 'BDT',
+    name: 'stripe',
+    currency: 'USD',
     rate: 1,  
-    image: 'nagod.png',
+    image: 'stripe.jpg',
     description: 'Fast and secure mobile payments.',
   },
 ];
@@ -38,17 +39,19 @@ const defaultGateways: Gateway[] = [
 
 export default function PaymentGateways({
   gateways = defaultGateways,
-  baseAmountBDT,
+  baseAmount,
   selectedId,
   onSelect,
 }: Props) {
+
+  const settings = useSettings();
   return (
     <div className="w-full space-y-6">
       <h2 className="text-3xl font-bold tracking-tight">Payment Method</h2>
 
       <div className="space-y-4">
         {gateways.map((g) => {
-          const payable = +(baseAmountBDT * g.rate).toFixed(2);
+          const payable = +(baseAmount * g.rate).toFixed(2);
           const selected = selectedId === g.id;
 
           return (
@@ -94,7 +97,7 @@ export default function PaymentGateways({
                   <div className="flex items-center justify-between text-sm">
                     <Label className="text-muted-foreground">Rate</Label>
                     <span className="font-medium">
-                      {g.rate} {g.currency} / BDT
+                      {g.rate} {g.currency} / { settings.base_currency }
                     </span>
                   </div>
 

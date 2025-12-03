@@ -1,4 +1,5 @@
 import CourseCard from "@/components/CourseCard";
+import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { Providers } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
@@ -148,9 +149,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredCourses.map((course) => (
-                <CourseCard key={course.id} {...course} />
-              ))}
+               {/* Featured Course */}
             </div>
           </div>
         </section>
@@ -223,6 +222,7 @@ export default function Home() {
 
         </div>
       </div>
+      <Footer/>
     </Providers>
   );
 }

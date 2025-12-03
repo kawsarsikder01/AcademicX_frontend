@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/api/courses/route.ts"],"sourcesContent":["export async function GET(req: Request) {\r\n  const { searchParams } = new URL(req.url);\r\n  const pageUrl = searchParams.get(\"page_url\");\r\n\r\n  const backendUrl = pageUrl\r\n    ? pageUrl\r\n    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/courses`;\r\n\r\n    console.log(\"Fetching courses from:\", pageUrl);\r\n\r\n  const res = await fetch(backendUrl);\r\n  const courses = await res.json();\r\n\r\n  return Response.json(courses);\r\n}\r\n"],"names":[],"mappings":";;;;AAAO,eAAe,IAAI,GAAY;IACpC,MAAM,EAAE,YAAY,EAAE,GAAG,IAAI,IAAI,IAAI,GAAG;IACxC,MAAM,UAAU,aAAa,GAAG,CAAC;IAEjC,MAAM,aAAa,UACf,UACA,+DAAuC,QAAQ,CAAC;IAElD,QAAQ,GAAG,CAAC,0BAA0B;IAExC,MAAM,MAAM,MAAM,MAAM;IACxB,MAAM,UAAU,MAAM,IAAI,IAAI;IAE9B,OAAO,SAAS,IAAI,CAAC;AACvB","debugId":null}}]
+}

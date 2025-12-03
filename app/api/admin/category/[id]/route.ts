@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // params can be awaited

@@ -91,8 +91,6 @@ export async function POST(request: NextRequest) {
       data: response.data,
     });
   } catch (error) {
-    console.log(error.response.data)
-    console.error("Error processing form:", error);
     return NextResponse.json({
       success: false,
       error: (error as Error).message,

@@ -38,6 +38,7 @@ export default function CourseForm() {
     description: "",
     introVideoUrl: "",
     total_hours: "",
+    externalUrl: "",
   });
 
   useEffect(() => {
@@ -253,12 +254,12 @@ export default function CourseForm() {
 
                     {streamType === "external" && (
                       <Field>
-                        <FieldLabel>External Stream URL</FieldLabel>
                         <Input
                           placeholder="Enter external streaming URL"
-                          value={(formData as any).externalUrl || ""}
+                          value={formData.externalUrl}
                           onChange={(e) => setFormData({ ...formData, externalUrl: e.target.value })}
                         />
+                       
                       </Field>
                     )}
                   </>

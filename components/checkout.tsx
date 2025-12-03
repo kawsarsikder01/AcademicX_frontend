@@ -7,14 +7,27 @@ import Footer from '@/components/Footer';
 import { useCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { useSettings } from './settings-provider';
 
-import PaymentGateways from './gateways';
+import PaymentGateways, { Gateway } from './gateways';
+
+const gateways: Gateway[] = [
+  {
+    id: 1,
+    name: 'Nagod',
+    currency: 'USD',
+    rate: 1,  
+    image: 'stripe.jpg',
+    description: 'Fast and secure mobile payments.',
+  },
+]
 import axios from 'axios';
 export default function Checkout() {
-  const { items, totalPrice, clearCart } = useCart(); // assume totalPrice is in BDT
+  const { items, totalPrice, clearCart } = useCart();  
   const router = useRouter();
   const [processing, setProcessing] = useState(false);
   const [selectedGatewayId, setSelectedGatewayId] = useState<number | null>(null);
+  const settings = useSettings();
 
   // If you have dynamic gateway list from PaymentGateways, you can import or fetch it.
   // Here we use the default inside PaymentGateways.
@@ -67,7 +80,8 @@ export default function Checkout() {
             <div className="md:col-span-2">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <PaymentGateways
-                  baseAmountBDT={totalPrice}
+                gateways={gateways}
+                  baseAmount={totalPrice}
                   selectedId={selectedGatewayId}
                   onSelect={setSelectedGatewayId}
                 />
@@ -79,7 +93,7 @@ export default function Checkout() {
                     className="w-full"
                     disabled={processing || selectedGatewayId === null}
                   >
-                    {processing ? 'Processing...' : `Pay ${totalPrice.toFixed(2)} BDT`}
+                    {processing ? 'Processing...' : `Pay ${totalPrice.toFixed(2)} ${settings.base_currency}`}
                   </Button>
                 </div>
               </form>

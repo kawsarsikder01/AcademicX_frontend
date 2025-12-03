@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import VendorList from "@/components/Admin/vendors/vendor-list";
 import AdminLayout from "../admin-layout";
 

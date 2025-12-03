@@ -25,12 +25,30 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { getFile } from "@/lib/utils"
 
+interface Settings {
+    site_name: string;
+    site_logo: string | File;
+    site_favicon: string | File;
+    site_email: string;
+    site_phone: string;
+    site_address: string;
+    base_currency: string;
+    currency_symbol: string;
+    currency_position: string;
+    site_charge: string;
+    has_space: boolean;
+    email_notifications: boolean;
+    sms_notifications: boolean;
+    in_app_notification: boolean;
+    firebase_notification: boolean;
+}
+
 export const SettingsForm = () => {
 
     // -------------------------------
     // STATES
     // -------------------------------
-    const [settings, setSettings] = useState({
+    const [settings, setSettings] = useState<Settings>({
         site_name: "",
         site_logo: "",
         site_favicon: "",
@@ -84,8 +102,8 @@ export const SettingsForm = () => {
     // -------------------------------
     // IMAGE PREVIEW HANDLER
     // -------------------------------
-    const handleImagePreview = (e: any, type: "logo" | "favicon") => {
-        const file = e.target.files[0]
+    const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>, type: "logo" | "favicon") => {
+        const file = e.target.files?.[0]
         if (!file) return
 
         const url = URL.createObjectURL(file)
@@ -103,7 +121,7 @@ export const SettingsForm = () => {
         const formData = new FormData();
 
         // Convert boolean → "enabled" | "disabled"
-        const payload: any = {
+        const payload = {
             ...settings,
             email_notifications: settings.email_notifications ? "enabled" : "disabled",
             sms_notifications: settings.sms_notifications ? "enabled" : "disabled",

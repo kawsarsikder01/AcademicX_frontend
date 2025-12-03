@@ -20,7 +20,6 @@ export async function GET() {
       }
     );
   } catch (error) {
-    console.error("Error fetching settings:", error);
     return new Response(
       JSON.stringify({ message: "Failed to fetch settings" }),
       {

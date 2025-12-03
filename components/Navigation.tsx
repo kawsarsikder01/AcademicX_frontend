@@ -8,13 +8,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSettings } from "./settings-provider";
 import { getFile } from "@/lib/utils";
-import { Settings } from "@/lib/types";
+import { Settings, User } from "@/lib/types";
+import { useEffect, useState } from "react";
 
 const Navigation = () => {
   const { totalItems } = useCart();
-  const settings: Settings | null = useSettings();
+  const settings: Settings   = useSettings();
+  const [user, setUser] = useState<User | null>(null);
    
-  
+ 
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "Courses" },
@@ -22,6 +24,21 @@ const Navigation = () => {
     { to: "/blog", label: "Blog" },
     { to: "/contact", label: "Contact" },
   ];
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/student/profile`);
+      const data = await res.json();
+      if (data.user) {
+        setUser(data.user);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if(user){
+    navLinks.push({ to: "/student/portal", label: "Student Portal" });
+  }
 
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">

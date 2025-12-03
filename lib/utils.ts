@@ -6,8 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export function getFile(filename: string)
-{
+export function getFile(filename: string) {
   return `${process.env.NEXT_PUBLIC_FILE_URL}/${filename}`;
 }
 
@@ -24,3 +23,17 @@ export function calculateDiscountedPrice(price: number, discount: number): numbe
 export function parseOptions(str: string): string[] {
   return JSON.parse(str).map((item: string) => item.trim());
 }
+
+
+export function getCookie(name: string): string | undefined {
+  const cookies = document.cookie.split("; ");
+
+  console.log(cookies);
+  for (const cookie of cookies) {
+    const [key, value] = cookie.split("=");
+    if (key === name) return value;
+  }
+
+  return undefined;
+}
+

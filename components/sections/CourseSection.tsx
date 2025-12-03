@@ -125,12 +125,30 @@ export type Course = {
   updated_at?: string;
   lessions?: lession[];
   introVideoUrl?: string;
+  total_students?: number;
 };
+
+interface PaginationInfo {
+  currentPage: number;
+  lastPage: number;
+  nextPageUrl: string | null;
+  perPage: number;
+  prevPageUrl: string | null;
+  total: number;
+}
+
 
 export default function CourseSection() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState<any>(null);
+  const [pagination, setPagination] = useState<PaginationInfo>({
+    currentPage: 1,
+    lastPage: 1,
+    nextPageUrl: null,
+    perPage: 10,
+    prevPageUrl: null,
+    total: 0,
+  });
 
   useEffect(() => {
 
@@ -145,7 +163,7 @@ export default function CourseSection() {
       .catch((err) => {
         console.error(err);
         setLoading(false);
-        
+
       });
   }, []);
 
@@ -175,7 +193,7 @@ export default function CourseSection() {
       <div className="container mx-auto px-4">
         <div className="mb-6">
           <p className="text-muted-foreground">
-            Showing {courses?.length??0} courses
+            Showing {courses?.length ?? 0} courses
           </p>
         </div>
 

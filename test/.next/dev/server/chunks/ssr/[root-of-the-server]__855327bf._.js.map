@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///E:/university/frontend/app/success/page.tsx"],"sourcesContent":["export default function SuccessPage() {\r\n    return (\r\n        <div className=\"min-h-screen flex flex-col\">\r\n            <main className=\"flex-1 flex items-center justify-center py-12 px-4 from-background via-background to-primary/5\">\r\n                <div className=\"w-full max-w-md text-center\">\r\n                    <div className=\"bg-card border border-border rounded-lg shadow-lg p-8\">\r\n                        <h1 className=\"text-2xl font-bold mb-4\">Success!</h1>\r\n                        <p className=\"text-base text-muted-foreground\">Your operation was completed successfully.</p>\r\n                    </div>\r\n                </div>\r\n            </main>\r\n        </div>\r\n    )\r\n}"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACpB,qBACI,8OAAC;QAAI,WAAU;kBACX,cAAA,8OAAC;YAAK,WAAU;sBACZ,cAAA,8OAAC;gBAAI,WAAU;0BACX,cAAA,8OAAC;oBAAI,WAAU;;sCACX,8OAAC;4BAAG,WAAU;sCAA0B;;;;;;sCACxC,8OAAC;4BAAE,WAAU;sCAAkC;;;;;;;;;;;;;;;;;;;;;;;;;;;AAMvE","debugId":null}}]
+}

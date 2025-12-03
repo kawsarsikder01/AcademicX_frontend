@@ -1,15 +1,24 @@
+'use client';
+
 import Link from "next/link";
-import { GraduationCap, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { useSettings } from "./settings-provider";
+import Image from "next/image";
+import { getFile } from "@/lib/utils";
 
 const Footer = () => {
+
+  const setting = useSettings()
   return (
     <footer className="bg-muted/50 border-t">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <GraduationCap className="h-8 w-8 text-primary" />
-              <span className="font-bold text-xl text-foreground">LearnHub</span>
+               
+             <Link href="/" className="flex items-center space-x-2">
+          { setting?.site_logo && <Image src={getFile(setting?.site_logo??'')} alt={setting?.site_name??''} unoptimized width={120} height={40} /> }
+          </Link>
             </div>
             <p className="text-muted-foreground mb-4">
               Empowering learners worldwide with quality education from expert instructors.
@@ -53,10 +62,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Contact</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>Email: info@learnhub.com</li>
-              <li>Phone: +1 (555) 123-4567</li>
-              <li>Address: 123 Learning St</li>
-              <li>San Francisco, CA 94102</li>
+              <li>Email: {setting.site_email}</li>
+              <li>Phone: {setting.site_email}</li>
+              <li>Address: {setting.site_address}</li> 
             </ul>
           </div>
         </div>

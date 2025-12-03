@@ -16,3 +16,10 @@ export type Settings = {
     in_app_notification: string;
     firebase_notification: string;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+}

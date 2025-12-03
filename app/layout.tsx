@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { SettingsProvider } from "@/components/settings-provider";
 import { getFile } from "@/lib/utils";
 import type { Metadata } from "next"; 

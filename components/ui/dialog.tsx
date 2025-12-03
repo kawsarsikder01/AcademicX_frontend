@@ -103,7 +103,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function VisuallyHidden({ children }) {
+function VisuallyHidden({ children }: React.ComponentProps<"div">) {
   return (
     <span style={{
       position: "absolute",

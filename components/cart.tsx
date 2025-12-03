@@ -1,5 +1,4 @@
-'use client';
-
+'use client'; 
 import Link from "next/link";
 import { Trash2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";

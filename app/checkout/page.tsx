@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Checkout from "@/components/checkout";
 import { Providers } from "@/components/Provider";
 
