@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Separator } from "./ui/separator";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
+import { Loader } from "lucide-react";
 
 
 
@@ -18,19 +19,22 @@ import { useRouter } from 'next/navigation';
 export default function UserLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, { email, password })
       .then(() => {
         toast.success("Login successful!");
         router.push('/student/portal');
       })
-      .catch((error) => {
-        console.log(error);
-        const errorMessage = error.response?.data?.error || "Login failed. Please try again.";
+      .catch((error) => { 
+        const errorMessage = error.response?.data?.error?.message || "Login failed. Please try again.";
         toast.error(errorMessage);
-      })
+      }).finally(() => {
+        setIsLoading(false);
+      });
   };
 
 
@@ -70,7 +74,8 @@ export default function UserLoginForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full" size="lg">
+        <Button type="submit" disabled={isLoading} className="w-full" size="lg">
+          <Loader className={`mr-2 h-4 w-4 animate-spin ${isLoading ? 'inline-block' : 'hidden'}`} />
           Sign In
         </Button>
       </form>

@@ -22,10 +22,7 @@ export const sidebarData: {
   },
   navMain: [
     { title: "Dashboard", url: "/vendor/dashboard", icon: "dashboard" },
-    { title: "Course", url: "/vendor/courses", icon: "list-details" },
-    { title: "Analytics", url: "#", icon: "chart-bar" },
-    { title: "Projects", url: "#", icon: "folder" },
-    { title: "Team", url: "#", icon: "users" },
+    { title: "Course", url: "/vendor/courses", icon: "list-details" }, 
   ],
   navClouds: [
     {
@@ -93,7 +90,7 @@ export const AdminsidebarData: {
     { title: "Categories", url: "/admin/categories", icon: "list-details" },
     { title: "Vendors", url: "/admin/vendors", icon: "users" },
     { title: "Courses", url: "/admin/courses", icon: "folder" },
-    { title: "Settings", url: "/admin/settings", icon: "settings" },
+    
   ],
   navClouds: [
     {
@@ -126,9 +123,7 @@ export const AdminsidebarData: {
     },
   ],
   navSecondary: [
-    { title: "Settings", url: "#", icon: "settings" },
-    { title: "Get Help", url: "#", icon: "help" },
-    { title: "Search", url: "#", icon: "search" },
+    { title: "Settings", url: "/admin/settings", icon: "settings" }, 
   ],
   documents: [
     { name: "Data Library", url: "#", icon: "database" },

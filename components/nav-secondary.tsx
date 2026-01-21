@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link";
 
 import {
   SidebarGroup,
@@ -29,11 +30,11 @@ export function NavSecondary({
             const Icon = getIcon(item.icon) || null;
             return(
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
+              <SidebarMenuButton asChild isActiveUrl={item.url}>
+                <Link href={item.url}>
                   {Icon && <Icon/>}
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )
@@ -43,3 +44,5 @@ export function NavSecondary({
     </SidebarGroup>
   )
 }
+
+ 
