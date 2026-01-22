@@ -65,7 +65,7 @@ const Cart = () => {
 
                                         {/* Price & Remove */}
                                         <div className="flex items-center justify-between mt-4 md:mt-0">
-                                            <p className="text-xl font-bold text-primary">${item.price.toFixed(2)}</p>
+                                            <p className="text-xl font-bold text-primary">${Number(item.price)?.toFixed(2)}</p>
                                             <Button
                                                 variant="outline"
                                                 size="sm"
@@ -90,7 +90,7 @@ const Cart = () => {
                                     <div className="space-y-3">
                                         <div className="flex justify-between text-muted-foreground">
                                             <span>Subtotal ({items.length} items)</span>
-                                            <span>${totalPrice.toFixed(2)}</span>
+                                            <span>${Number(totalPrice)?.toFixed(2)}</span>
                                         </div>
                                         <div className="flex justify-between text-muted-foreground">
                                             <span>Tax</span>
@@ -99,7 +99,7 @@ const Cart = () => {
                                         <Separator />
                                         <div className="flex justify-between text-xl font-bold">
                                             <span>Total</span>
-                                            <span>${totalPrice.toFixed(2)}</span>
+                                            <span>${Number(totalPrice)?.toFixed(2)}</span>
                                         </div>
                                     </div>
                                     <Button

@@ -14,7 +14,7 @@ import PaymentGateways, { Gateway } from './gateways';
 const gateways: Gateway[] = [
   {
     id: 1,
-    name: 'Nagod',
+    name: 'Stripe',
     currency: 'USD',
     rate: 1,  
     image: 'stripe.jpg',
@@ -93,7 +93,7 @@ export default function Checkout() {
                     className="w-full"
                     disabled={processing || selectedGatewayId === null}
                   >
-                    {processing ? 'Processing...' : `Pay ${totalPrice.toFixed(2)} ${settings.base_currency}`}
+                    {processing ? 'Processing...' : `Pay ${Number(totalPrice)?.toFixed(2)} ${settings.base_currency}`}
                   </Button>
                 </div>
               </form>
